@@ -106,6 +106,32 @@
     100%{ transform:translate(-310px,-102vh) rotate(-2deg); opacity:0; }
   }
 
+  .side-butterfly{ position:fixed; top:24vh; left:-90px; width:46px; z-index:55; pointer-events:none; filter:drop-shadow(0 3px 8px rgba(107,74,58,.2)); animation:flyInRight 15s ease-in-out infinite; }
+  .side-butterfly img{ display:block; width:100%; height:auto; transform-origin:50% 50%; animation:wingFlap .28s ease-in-out infinite alternate; }
+  .side-butterfly-1{ top:20vh; filter:hue-rotate(0deg) saturate(1.2) drop-shadow(0 3px 8px rgba(107,74,58,.2)); animation:flyInRight 15s ease-in-out infinite; animation-delay:0s; }
+  .side-butterfly-2{ top:58vh; left:auto; right:-90px; filter:hue-rotate(190deg) saturate(1.5) drop-shadow(0 3px 8px rgba(107,74,58,.2)); animation:flyInLeft 17s ease-in-out infinite; animation-delay:4s; }
+  @keyframes flyInRight{
+    0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
+    6%{ opacity:1; }
+    25%{ transform:translate(32vw,-4vh) rotate(3deg); }
+    50%{ transform:translate(62vw,3vh) rotate(-3deg); }
+    75%{ transform:translate(92vw,-4vh) rotate(3deg); opacity:1; }
+    94%{ opacity:1; }
+    100%{ transform:translate(118vw,2vh) rotate(0deg); opacity:0; }
+  }
+  @keyframes flyInLeft{
+    0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
+    6%{ opacity:1; }
+    25%{ transform:translate(-32vw,4vh) rotate(-3deg); }
+    50%{ transform:translate(-62vw,-3vh) rotate(3deg); }
+    75%{ transform:translate(-92vw,4vh) rotate(-3deg); opacity:1; }
+    94%{ opacity:1; }
+    100%{ transform:translate(-118vw,-2vh) rotate(0deg); opacity:0; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .side-butterfly, .side-butterfly img{ animation:none; opacity:0; }
+  }
+
   .petal{ position:absolute; top:-30px; font-size:16px; animation:fallDown ease-in-out forwards; opacity:1; }
   .petal img{ display:block; width:100%; height:100%; }
   @keyframes fallDown{
@@ -330,7 +356,7 @@
     animation:iconGlowPulse 3s ease-in-out infinite;
   }
   @keyframes iconGlowPulse{ 0%,100%{ opacity:.5; transform:scale(.9);} 50%{ opacity:1; transform:scale(1.15);} }
-  .icon-hero-butterfly{ width:44px; height:44px; position:relative; z-index:1; animation:heroButterflyFlap 2.6s ease-in-out infinite; }
+  .icon-hero-butterfly{ width:64px; height:64px; position:relative; z-index:1; animation:heroButterflyFlap 2.6s ease-in-out infinite; }
   @keyframes heroButterflyFlap{ 0%,100%{ transform:scale(1) rotate(-3deg);} 50%{ transform:scale(1.08) rotate(3deg);} }
 
   .icon-loader{ animation:loaderIconSpin 2.4s ease-in-out infinite; }
@@ -343,7 +369,39 @@
   .overlay h1{ font-family:"Great Vibes",cursive; font-size:clamp(50px,10vw,90px); line-height:1.05; text-shadow:0 1px 3px rgba(255,255,255,.7); display:inline-block; padding:6px 24px; border-radius:40px; background-image:linear-gradient(100deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.14) 100%); background-size:250% 100%; backdrop-filter:blur(6px); animation:pillShimmer 6s ease-in-out infinite; }
   @keyframes pillShimmer{ 0%{ background-position:200% 0;} 100%{ background-position:-50% 0;} }
   @media (prefers-reduced-motion: reduce){ .overlay h1{ animation:none; background-position:0 0; } }
-  .overlay h2{ margin:18px 0 20px; font-size:clamp(22px,4.5vw,34px); font-weight:600; letter-spacing:1px; }
+  .overlay h2{
+    margin:20px auto 24px;
+    max-width:520px;
+    font-family:"Great Vibes",cursive;
+    font-size:clamp(34px,7vw,54px);
+    font-weight:400;
+    line-height:1.15;
+    letter-spacing:.5px;
+    color:var(--rose-deep);
+    background-image:linear-gradient(100deg, var(--rose-deep) 0%, #ffd27a 45%, var(--rose-deep) 100%);
+    background-size:220% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 2px 14px rgba(232,112,158,.35);
+    position:relative;
+    display:inline-block;
+    padding-bottom:14px;
+    animation:titleShimmer 5s ease-in-out infinite;
+  }
+  .overlay h2::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:120px;
+    height:3px;
+    border-radius:99px;
+    background:linear-gradient(90deg, transparent, var(--rose-deep), #ffd27a, var(--rose-deep), transparent);
+  }
+  @keyframes titleShimmer{ 0%,100%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } }
+  @media (prefers-reduced-motion: reduce){ .overlay h2{ animation:none; } }
   .overlay p{ font-size:clamp(15px,2.4vw,18px); line-height:1.8; margin-bottom:35px; opacity:.95; }
 
   .btn{ display:inline-block; padding:15px 38px; background:#fff; color:var(--rose-deep); border-radius:var(--r-pill); text-decoration:none; transition:.3s ease; font-weight:600; box-shadow:0 8px 20px rgba(107,74,58,.18); border:none; cursor:pointer; font-family:'Poppins',sans-serif; font-size:15px; }
@@ -485,6 +543,7 @@
   .photo-frame img{ width:100%; height:100%; object-fit:cover; display:block; transition:.4s ease; }
   .photo-frame:hover img{ transform:scale(1.08); }
   .photo-frame .fallback{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:34px; color:#fff; }
+  .photo-frame .month-label{ position:absolute; left:0; right:0; bottom:0; padding:10px 10px 8px; font-family:"Great Vibes",cursive; font-size:26px; font-weight:400; letter-spacing:.03em; color:#fff; text-align:center; text-shadow:0 2px 6px rgba(107,74,58,.55); background:linear-gradient(0deg, rgba(107,74,58,.6), rgba(107,74,58,0)); pointer-events:none; }
 
   /* Lightbox */
   .lightbox{ position:fixed; inset:0; background:rgba(30,10,20,.85); display:none; align-items:center; justify-content:center; z-index:100; padding:20px; }
@@ -815,6 +874,8 @@
 </div>
 
 <div id="butterflies" aria-hidden="true"></div>
+<div class="side-butterfly side-butterfly-1" aria-hidden="true"><img src="images/butterfly-real.png" alt=""></div>
+<div class="side-butterfly side-butterfly-2" aria-hidden="true"><img src="images/butterfly-real.png" alt=""></div>
 <div id="petals" aria-hidden="true"></div>
 <div id="sparkle-overlay" aria-hidden="true"></div>
 <div id="fireflies" aria-hidden="true"></div>
@@ -828,7 +889,7 @@
 <!-- HERO -->
 <header class="hero">
   <div class="overlay">
-    <span class="butterfly-icon-wrap" aria-hidden="true"><svg class="icon icon-hero-butterfly" viewBox="0 0 48 48"><use href="#icon-butterfly"/></svg></span>
+    <span class="butterfly-icon-wrap" aria-hidden="true"><img class="icon icon-hero-butterfly" src="images/castle-icon.svg" alt=""></span>
     <h3>You're Invited</h3>
     <h1>Arkeisha Heather</h1>
     <h2>Fairy First Birthday &amp; Christening</h2>
@@ -947,17 +1008,17 @@
   <h2>Photo Gallery</h2>
   <p class="section-sub">Little moments, big magic</p>
   <div class="photos">
-    <div class="photo-frame"><img src="images/gallery1.png" alt="Arkeisha Heather – gallery photo 1" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery2.png" alt="Arkeisha Heather – gallery photo 2" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery3.png" alt="Arkeisha Heather – gallery photo 3" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery4.png" alt="Arkeisha Heather – gallery photo 4" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery5.png" alt="Arkeisha Heather – gallery photo 5" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery6.png" alt="Arkeisha Heather – gallery photo 6" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery7.png" alt="Arkeisha Heather – gallery photo 7" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery8.png" alt="Arkeisha Heather – gallery photo 8" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery9.png" alt="Arkeisha Heather – gallery photo 9" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery10.png" alt="Arkeisha Heather – gallery photo 10" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
-    <div class="photo-frame"><img src="images/gallery11.png" alt="Arkeisha Heather – gallery photo 11" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div></div>
+    <div class="photo-frame"><img src="images/gallery1.png" alt="Arkeisha Heather – 1 month" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">1 Month</div></div>
+    <div class="photo-frame"><img src="images/gallery2.png" alt="Arkeisha Heather – 2 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">2 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery3.png" alt="Arkeisha Heather – 3 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">3 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery4.png" alt="Arkeisha Heather – 4 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">4 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery5.png" alt="Arkeisha Heather – 5 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">5 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery6.png" alt="Arkeisha Heather – 6 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">6 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery7.png" alt="Arkeisha Heather – 7 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">7 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery8.png" alt="Arkeisha Heather – 8 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">8 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery9.png" alt="Arkeisha Heather – 9 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">9 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery10.png" alt="Arkeisha Heather – 10 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">10 Months</div></div>
+    <div class="photo-frame"><img src="images/gallery11.png" alt="Arkeisha Heather – 11 months" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="fallback" style="display:none;">📷</div><div class="month-label">11 Months</div></div>
   </div>
 </section>
 
