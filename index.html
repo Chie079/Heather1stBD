@@ -73,6 +73,7 @@
   .butterfly{ position:absolute; bottom:-40px; font-size:22px; animation:flutterFly ease-in-out forwards; filter:drop-shadow(0 2px 4px rgba(0,0,0,.15)); }
   .butterfly .wing{ display:inline-block; animation:wingFlap .28s ease-in-out infinite alternate; }
   @keyframes wingFlap{ from{ transform:scaleX(1);} to{ transform:scaleX(.55);} }
+  .real-butterfly-img{ display:block; width:34px; height:auto; transform-origin:50% 50%; }
   @keyframes flutterFly{
     0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
     8%{ opacity:1; }
@@ -1150,14 +1151,15 @@
 
   startParticleLayer({
     layerId: "butterflies", className: "butterfly", maxAlive: 5, interval: 2200, life: 13000,
-    content: () => '<span class="wing">🦋</span>',
+    content: () => '<img src="images/butterfly-real.png" class="wing real-butterfly-img" alt="">',
     style: el => {
       const paths = ["", "path-right", "path-left"];
       const path = paths[Math.floor(Math.random() * paths.length)];
       if (path) el.classList.add(path);
       el.style.left = Math.random() * 100 + "vw";
       el.style.animationDuration = (7 + Math.random() * 5) + "s";
-      el.style.fontSize = (16 + Math.random() * 14) + "px";
+      const img = el.querySelector("img");
+      if (img) img.style.width = (28 + Math.random() * 20) + "px";
     }
   });
 
