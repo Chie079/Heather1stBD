@@ -349,7 +349,7 @@
   .icon-badge{ width:48px; height:48px; }
   .icon-loader{ width:70px; height:70px; }
 
-  .butterfly-icon-wrap{ position:absolute; top:-200px; left:50%; transform:translateX(-50%); z-index:3; display:inline-flex; justify-content:center; pointer-events:none; }
+  .butterfly-icon-wrap{ position:relative; display:inline-flex; justify-content:center; margin-bottom:14px; z-index:3; pointer-events:none; }
   .overlay h3{ position:relative; z-index:1; }
   .butterfly-icon-wrap::before{
     content:""; position:absolute; inset:-60px; border-radius:50%;
@@ -358,7 +358,7 @@
     animation:iconGlowPulse 3s ease-in-out infinite;
   }
   @keyframes iconGlowPulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
-  .icon-hero-butterfly{ width:160%; height:160%; max-width:none; position:relative; left:-30%; top:-30%; filter:drop-shadow(0 0 25px rgba(255,214,140,.65)) drop-shadow(0 0 55px rgba(244,166,193,.45)); }
+  .icon-hero-butterfly{ width:112%; height:112%; max-width:none; position:relative; left:-6%; top:-6%; filter:drop-shadow(0 0 25px rgba(255,214,140,.65)) drop-shadow(0 0 55px rgba(244,166,193,.45)); }
   .castle-crop{ display:block; width:550px; height:550px; max-width:80vw; max-height:80vw; overflow:hidden; border-radius:8px; }
   @keyframes heroButterflyFlap{ 0%,100%{ transform:scale(1) rotate(-3deg);} 50%{ transform:scale(1.08) rotate(3deg);} }
 
