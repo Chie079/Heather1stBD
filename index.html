@@ -526,10 +526,34 @@
   .rsvp{ background:linear-gradient(160deg,var(--sky) 0%,var(--lavender) 100%); }
   .rsvp-card{ max-width:420px; margin:0 auto; background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border-radius:var(--r-lg); padding:clamp(28px,7vw,44px) clamp(20px,6vw,32px); box-shadow:var(--shadow-lg); }
   .rsvp-card p{ margin-bottom:26px; font-size:16px; color:var(--ink); }
-  #rsvp-link{ animation:rsvpPulse 2.6s ease-in-out infinite; }
-  #rsvp-link:hover, #rsvp-link:focus-visible{ animation-play-state:paused; }
+  #rsvp-submit{ animation:rsvpPulse 2.6s ease-in-out infinite; width:100%; display:inline-flex; align-items:center; justify-content:center; gap:6px; margin-top:6px; }
+  #rsvp-submit:hover, #rsvp-submit:focus-visible{ animation-play-state:paused; }
+  #rsvp-submit:disabled{ opacity:.7; cursor:default; animation:none; transform:none !important; }
   @keyframes rsvpPulse{ 0%,100%{ box-shadow:0 8px 20px rgba(0,0,0,.15), 0 0 0 0 rgba(255,255,255,.55); } 50%{ box-shadow:0 8px 20px rgba(0,0,0,.15), 0 0 0 14px rgba(255,255,255,0); } }
-  @media (prefers-reduced-motion: reduce){ #rsvp-link{ animation:none; } }
+  @media (prefers-reduced-motion: reduce){ #rsvp-submit{ animation:none; } }
+
+  /* RSVP form fields */
+  .rsvp-field{ text-align:left; margin-bottom:18px; }
+  .rsvp-field label,.rsvp-legend{ display:block; font-size:13px; font-weight:600; letter-spacing:.3px; color:var(--ink); margin-bottom:8px; }
+  .rsvp-field .optional{ font-weight:400; color:var(--ink-soft); }
+  .rsvp-field input[type="text"],.rsvp-field input[type="number"],.rsvp-field textarea{
+    width:100%; padding:12px 16px; border:2px solid rgba(232,112,158,.25); border-radius:var(--r-sm);
+    background:rgba(255,255,255,.92); font-family:'Poppins',sans-serif; font-size:15px; color:var(--ink);
+    transition:.25s ease;
+  }
+  .rsvp-field input:focus,.rsvp-field textarea:focus{ outline:none; border-color:var(--rose-deep); box-shadow:0 0 0 4px rgba(232,112,158,.15); }
+  .rsvp-field textarea{ resize:vertical; min-height:70px; font-family:'Poppins',sans-serif; }
+  .rsvp-radio-group{ display:flex; flex-direction:column; gap:10px; }
+  .rsvp-radio{ display:flex; align-items:center; gap:10px; padding:12px 14px; border:2px solid rgba(232,112,158,.2); border-radius:var(--r-sm); background:rgba(255,255,255,.7); cursor:pointer; font-size:14px; font-weight:500; color:var(--ink); transition:.25s ease; }
+  .rsvp-radio:has(input:checked){ border-color:var(--rose-deep); background:rgba(244,166,193,.18); }
+  .rsvp-radio input{ width:16px; height:16px; accent-color:var(--rose-deep); flex-shrink:0; }
+  #guestsField.is-hidden{ display:none; }
+  .rsvp-error{ color:#a13a52; background:rgba(179,67,92,.1); border-radius:var(--r-sm); padding:10px 14px; font-size:13px; margin-top:14px; text-align:left; }
+  .rsvp-success{ animation:welcomeCardIn .7s cubic-bezier(.16,1,.3,1) both; }
+  .rsvp-success-icon{ display:inline-flex; margin-bottom:10px; }
+  .rsvp-success h3{ font-family:"Great Vibes",cursive; font-size:40px; color:var(--rose-deep); margin-bottom:10px; }
+  .rsvp-success p{ color:var(--ink-soft); font-size:15px; }
+  @media (prefers-reduced-motion: reduce){ .rsvp-success{ animation:none; } }
 
   /* Map */
   .map{ background:#fff; }
@@ -1014,8 +1038,42 @@
 <section class="rsvp">
   <h2>RSVP</h2>
   <div class="rsvp-card">
-    <p>Kindly let us know if you can make it! Your presence would mean so much to us.</p>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxP7lGvoVmHuRIuOmOe6jGt_nofQ_lBSKnqHbjTQZZRcGKWw/viewform?pli=1" target="_blank" rel="noopener" class="btn" id="rsvp-link"><svg class="icon icon-inline" viewBox="0 0 48 48"><use href="#icon-envelope"/></svg> RSVP Here</a>
+    <div id="rsvpFormWrap">
+      <p>Kindly let us know if you can make it! Your presence would mean so much to us.</p>
+      <form id="rsvpForm" novalidate>
+        <div class="rsvp-field">
+          <label for="rsvpName">Your Name</label>
+          <input type="text" id="rsvpName" name="name" required autocomplete="name" placeholder="e.g. Maria Santos">
+        </div>
+
+        <div class="rsvp-field">
+          <span class="rsvp-legend" id="attendingLegend">Will you be attending?</span>
+          <div class="rsvp-radio-group" role="radiogroup" aria-labelledby="attendingLegend">
+            <label class="rsvp-radio"><input type="radio" name="attending" value="Yes" checked> Yes, I'll be there</label>
+            <label class="rsvp-radio"><input type="radio" name="attending" value="No"> Sorry, can't make it</label>
+          </div>
+        </div>
+
+        <div class="rsvp-field" id="guestsField">
+          <label for="rsvpGuests">Number of Guests (including you)</label>
+          <input type="number" id="rsvpGuests" name="guests" min="1" max="10" value="1" inputmode="numeric" required>
+        </div>
+
+        <div class="rsvp-field">
+          <label for="rsvpMessage">Message <span class="optional">(optional)</span></label>
+          <textarea id="rsvpMessage" name="message" rows="3" placeholder="Well wishes for Arkeisha Heather..."></textarea>
+        </div>
+
+        <button type="submit" class="btn" id="rsvp-submit"><svg class="icon icon-inline" viewBox="0 0 48 48"><use href="#icon-envelope"/></svg> <span id="rsvp-submit-label">Send RSVP</span></button>
+        <p class="rsvp-error" id="rsvpError" role="alert" hidden></p>
+      </form>
+    </div>
+
+    <div id="rsvpSuccess" class="rsvp-success" hidden>
+      <span class="rsvp-success-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 48 48" style="width:52px;height:52px"><use href="#icon-fairy"/></svg></span>
+      <h3>Thank You!</h3>
+      <p id="rsvpSuccessMsg">Your RSVP has been received. We can't wait to celebrate with you!</p>
+    </div>
   </div>
 </section>
 
@@ -1239,7 +1297,7 @@
       setTimeout(() => spark.remove(), 800);
     }
   }
-  document.querySelectorAll("#openInvitation, #rsvp-link, #envelope").forEach(btn => {
+  document.querySelectorAll("#openInvitation, #envelope").forEach(btn => {
     btn.addEventListener("click", (e) => spawnSparkleBurst(e.clientX, e.clientY));
   });
 
@@ -1278,6 +1336,88 @@
   document.getElementById("envelope").addEventListener("click", () => {
     document.querySelector(".rsvp").scrollIntoView({ behavior: "smooth" });
   });
+
+  // RSVP FORM — submits to a Google Apps Script Web App that logs each
+  // response as a row in a Google Sheet. See rsvp-setup.md for the
+  // 5-minute setup; paste the deployed Web App URL below.
+  const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbw_iGw9wiGkiTAyq3J16SH480RqA7s5zz17bWpcOVyaMlYiXzGcRuGv_f3WITW5P0K_/exec";
+
+  const rsvpForm = document.getElementById("rsvpForm");
+  const rsvpFormWrap = document.getElementById("rsvpFormWrap");
+  const rsvpSuccess = document.getElementById("rsvpSuccess");
+  const rsvpSuccessMsg = document.getElementById("rsvpSuccessMsg");
+  const rsvpError = document.getElementById("rsvpError");
+  const guestsField = document.getElementById("guestsField");
+  const rsvpGuestsInput = document.getElementById("rsvpGuests");
+  const rsvpSubmitBtn = document.getElementById("rsvp-submit");
+  const rsvpSubmitLabel = document.getElementById("rsvp-submit-label");
+
+  if (rsvpForm) {
+    rsvpForm.querySelectorAll('input[name="attending"]').forEach(radio => {
+      radio.addEventListener("change", () => {
+        const attendingYes = rsvpForm.querySelector('input[name="attending"]:checked').value === "Yes";
+        guestsField.classList.toggle("is-hidden", !attendingYes);
+        rsvpGuestsInput.required = attendingYes;
+      });
+    });
+
+    rsvpForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      rsvpError.hidden = true;
+
+      const name = document.getElementById("rsvpName").value.trim();
+      const attending = rsvpForm.querySelector('input[name="attending"]:checked').value;
+      const guests = rsvpGuestsInput.value;
+      const message = document.getElementById("rsvpMessage").value.trim();
+
+      if (!name) {
+        rsvpError.textContent = "Please enter your name.";
+        rsvpError.hidden = false;
+        document.getElementById("rsvpName").focus();
+        return;
+      }
+      if (attending === "Yes" && (!guests || Number(guests) < 1)) {
+        rsvpError.textContent = "Please enter how many guests will attend.";
+        rsvpError.hidden = false;
+        rsvpGuestsInput.focus();
+        return;
+      }
+      if (!RSVP_ENDPOINT || RSVP_ENDPOINT.startsWith("PASTE_")) {
+        rsvpError.textContent = "RSVP isn't connected yet — please let the hosts know directly for now.";
+        rsvpError.hidden = false;
+        return;
+      }
+
+      rsvpSubmitBtn.disabled = true;
+      rsvpSubmitLabel.textContent = "Sending...";
+
+      const body = new URLSearchParams({
+        name, attending,
+        guests: attending === "Yes" ? guests : "0",
+        message
+      });
+
+      // mode:"no-cors" is required because Apps Script Web Apps don't send
+      // CORS headers; the response is opaque, so a resolved promise is
+      // treated as success and a network failure as the error case.
+      fetch(RSVP_ENDPOINT, { method: "POST", mode: "no-cors", body })
+        .then(() => {
+          rsvpSuccessMsg.textContent = attending === "Yes"
+            ? `Thank you, ${name}! We've saved your RSVP for ${guests} guest${Number(guests) === 1 ? "" : "s"}. We can't wait to celebrate with you!`
+            : `Thank you for letting us know, ${name}. You'll be missed — we hope to celebrate with you another time!`;
+          rsvpFormWrap.hidden = true;
+          rsvpSuccess.hidden = false;
+          const rect = rsvpSubmitBtn.getBoundingClientRect();
+          spawnSparkleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 16);
+        })
+        .catch(() => {
+          rsvpError.textContent = "Something went wrong sending your RSVP. Please check your connection and try again.";
+          rsvpError.hidden = false;
+          rsvpSubmitBtn.disabled = false;
+          rsvpSubmitLabel.textContent = "Send RSVP";
+        });
+    });
+  }
 
   // MUSIC TOGGLE
   const musicBtn = document.getElementById("musicBtn");
