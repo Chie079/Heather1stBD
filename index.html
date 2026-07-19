@@ -109,6 +109,7 @@
   }
 
   .petal{ position:absolute; top:-30px; font-size:16px; animation:fallDown ease-in-out forwards; opacity:.85; }
+  .petal img{ display:block; width:100%; height:100%; }
   @keyframes fallDown{
     0%{ transform:translateY(0) translateX(0) rotate(0deg); opacity:.85; }
     25%{ transform:translateY(27vh) translateX(-20px) rotate(80deg); }
@@ -1167,14 +1168,16 @@
     }
   });
 
-  const petalEmojis = ["🌸", "🌺", "💮"];
+  const flowerImages = ["images/flower-1.svg", "images/flower-2.svg", "images/flower-3.svg", "images/flower-4.svg"];
   startParticleLayer({
     layerId: "petals", className: "petal", maxAlive: 10, interval: 900, life: 12000,
-    content: () => petalEmojis[Math.floor(Math.random() * petalEmojis.length)],
+    content: () => `<img src="${flowerImages[Math.floor(Math.random() * flowerImages.length)]}" alt="">`,
     style: el => {
       el.style.left = Math.random() * 100 + "vw";
       el.style.animationDuration = (6 + Math.random() * 5) + "s";
-      el.style.fontSize = (12 + Math.random() * 10) + "px";
+      const size = 14 + Math.random() * 12;
+      el.style.width = size + "px";
+      el.style.height = size + "px";
     }
   });
 
