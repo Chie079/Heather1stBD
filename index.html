@@ -349,14 +349,15 @@
   .icon-badge{ width:48px; height:48px; }
   .icon-loader{ width:70px; height:70px; }
 
-  .butterfly-icon-wrap{ position:relative; display:inline-flex; justify-content:center; margin-bottom:10px; }
+  .butterfly-icon-wrap{ position:relative; display:inline-flex; justify-content:center; margin-bottom:-10px; }
   .butterfly-icon-wrap::before{
-    content:""; position:absolute; inset:-16px; border-radius:50%;
-    background:radial-gradient(circle, rgba(255,255,255,.55), transparent 70%);
+    content:""; position:absolute; inset:-60px; border-radius:50%;
+    background:radial-gradient(circle, rgba(255,226,168,.85), rgba(244,166,193,.5) 45%, transparent 75%);
+    filter:blur(6px);
     animation:iconGlowPulse 3s ease-in-out infinite;
   }
-  @keyframes iconGlowPulse{ 0%,100%{ opacity:.5; transform:scale(.9);} 50%{ opacity:1; transform:scale(1.15);} }
-  .icon-hero-butterfly{ width:550px; height:550px; max-width:80vw; position:relative; z-index:1; animation:heroButterflyFlap 2.6s ease-in-out infinite; }
+  @keyframes iconGlowPulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
+  .icon-hero-butterfly{ width:550px; height:550px; max-width:80vw; position:relative; z-index:1; filter:drop-shadow(0 0 25px rgba(255,214,140,.65)) drop-shadow(0 0 55px rgba(244,166,193,.45)); }
   @keyframes heroButterflyFlap{ 0%,100%{ transform:scale(1) rotate(-3deg);} 50%{ transform:scale(1.08) rotate(3deg);} }
 
   .icon-loader{ animation:loaderIconSpin 2.4s ease-in-out infinite; }
