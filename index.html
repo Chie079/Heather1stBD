@@ -480,6 +480,7 @@
   .village-banner .flutter.b1{ top:-6px; left:20%; animation-delay:.2s; }
   .village-banner .flutter.b2{ top:-18px; left:45%; animation-delay:.8s; }
   .village-banner .flutter.b3{ top:0; left:68%; animation-delay:1.4s; }
+  .village-banner .village-fairy img{ display:block; width:280px; max-width:70vw; height:auto; }
   @keyframes bannerFlutter{ 0%,100%{ transform:translateY(0) rotate(-4deg);} 50%{ transform:translateY(-10px) rotate(4deg);} }
   .village-caption{ margin-top:14px; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--ink-soft); text-align:center; }
 
@@ -670,12 +671,14 @@
     #timer span{ font-size:26px; }
     .gift-item,.reminder-item{ width:130px; }
     .village-row,.village-banner{ font-size:32px; gap:10px; }
+    .village-banner .village-fairy img{ width:200px; }
     .event-entry{ gap:14px; }
     #musicBtn span{ display:none; }
   }
   @media(max-width:360px){
     .gift-item,.reminder-item{ width:110px; }
     .village-row,.village-banner{ font-size:26px; gap:6px; }
+    .village-banner .village-fairy img{ width:150px; }
     .gift-item .emoji{ width:64px; height:64px; }
   }
 </style>
@@ -1039,7 +1042,7 @@
     <span class="flutter b1">🦋</span>
     <span class="flutter b2">🦋</span>
     <span class="flutter b3">🦋</span>
-    <span>🏡</span><span>🍄</span><span>🏰</span><span>🌷</span><span>🎡</span>
+    <span class="village-fairy"><img src="images/fairy-mushroom.png" alt="Fairy on a mushroom" loading="lazy" decoding="async"></span>
   </div>
   <h2>Gift Guide</h2>
   <p class="section-sub">If you'd like to bring something</p>
