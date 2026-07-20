@@ -426,10 +426,10 @@
   .wing-r{ transform-origin:0% 45%; }
   @keyframes wingFlap{ 0%{ transform:scaleX(1) scaleY(1);} 100%{ transform:scaleX(.5) scaleY(.92);} }
   .glitter-dot{ position:absolute; width:6px; height:6px; border-radius:50%; background:radial-gradient(circle,#fff6c9,var(--rose-deep) 70%); box-shadow:0 0 8px 2px rgba(255,244,180,.8); opacity:0; animation:glitterTwinkle 1.8s ease-in-out infinite; }
-  .glitter-dot.g1{ top:58%; left:-10px; animation-delay:0s; }
-  .glitter-dot.g2{ top:18%; left:-24px; background:radial-gradient(circle,#fff,var(--lavender) 70%); animation-delay:.4s; }
-  .glitter-dot.g3{ top:74%; left:-32px; animation-delay:.8s; }
-  .glitter-dot.g4{ top:6%; left:-42px; background:radial-gradient(circle,#fff,var(--sky) 70%); animation-delay:1.2s; }
+  .glitter-dot.g1{ top:-10px; left:38%; animation-delay:0s; }
+  .glitter-dot.g2{ top:38%; left:auto; right:-10px; background:radial-gradient(circle,#fff,var(--lavender) 70%); animation-delay:.4s; }
+  .glitter-dot.g3{ top:auto; bottom:-10px; left:38%; animation-delay:.8s; }
+  .glitter-dot.g4{ top:38%; left:-10px; background:radial-gradient(circle,#fff,var(--sky) 70%); animation-delay:1.2s; }
   @keyframes glitterTwinkle{ 0%,100%{ opacity:0; transform:scale(.4); } 50%{ opacity:1; transform:scale(1); } }
   @media(max-width:600px){
     .flying-fairy{ width:60px; height:60px; }
